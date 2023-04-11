@@ -1,0 +1,3 @@
+body{width: 100%; height: 100vh; background: url(https://pikwizard.com/pw/medium/15a91acb710b8707eec566b209fe3cf5.jpg) center/cover no-repeat;}
+.container{display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 40px; height: 100vh;}
+.wheatherBox{padding: 30px 60px; background: rgba(0, 0, 0, 0.3); border-radius: 10px; color: #fff;}
