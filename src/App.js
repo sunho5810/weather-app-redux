@@ -23,6 +23,7 @@ function App() {
   const [city, setCity] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  
 
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position)=>{
