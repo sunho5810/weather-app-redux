@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import WeatherBox from './component/WeatherBox';
 import WeatherButton from './component/WeatherButton';
 import ClipLoader from "react-spinners/ClipLoader";
+import { useDispatch, useSelector } from 'react-redux';
+import { weatherAction } from './redux/actions/weatherAction';
 
 
 // 1. 앱이 실행되자마자 현재위치기반의 날씨가 보인다
@@ -19,9 +21,12 @@ const cities = ["london", "manchester", "barcelona", "madrid"];
 
 function App() {
 
-  const [weather, setWeather] = useState(null);
+  // const [weather, setWeather] = useState(null);
   const [city, setCity] = useState(null);
   const [loading, setLoading] = useState(false);
+
+
+  const dispatch = useDispatch();
 
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position)=>{
@@ -32,21 +37,14 @@ function App() {
   }
  
   const getWeatherByCurrentLocation = async(lat, lon) => { //async 비동기 함수
-    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=7b4dec0b00158074b48ddf6955854d65&units=metric`;
-    let response = await fetch(url);
-    let data = await response.json();
-
-    setWeather(data);
+    
+    dispatch(weatherAction.getWeatherByCurrentLocation(lat, lon));
     setLoading(false);
   }
 
   const getWeatherByCity = async(city) => {
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=7b4dec0b00158074b48ddf6955854d65&units=metric`;
-    let response = await fetch(url);
-    let data = await response.json();
 
-    setWeather(data);
-    console.log("getWeatherByCity data?", data);
+    dispatch(weatherAction.getWeatherByCity(city));
     setLoading(false);
   }
 
@@ -61,7 +59,7 @@ function App() {
   }, [city]);
 
   const handleCityChange = (city) => {
-    console.log("city?", city);
+    // console.log("city?", city);
     if(city == "current"){
       setCity(null);
     } else {
@@ -78,7 +76,7 @@ function App() {
           </div>
         ) : (
           <div className='container'>
-            <WeatherBox weather={weather}/>
+            <WeatherBox/>
             <WeatherButton cities={cities} handleCityChange={handleCityChange} selectedCity={city}/>
           </div>
         )
