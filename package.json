@@ -1,6 +1,5 @@
 {
   "name": "weather-app-redux",
-  "homepage": "https://sunho5810.github.io/weather-app-redux/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
